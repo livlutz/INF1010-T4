@@ -172,3 +172,17 @@ void arvImprime(No* a){
 		arvImprime(a->dir);
 	}
 }
+
+//percorre a árvore em pré-ordem e escreve os caracteres num arquivo
+
+void comprime(No*arv,FILE*f){
+	
+	if (arv == NULL) {
+		return;
+	}
+
+	comprime(arv->esq, f);
+	fprintf(f, "%c ", arv->a);
+	comprime(arv->dir, f);
+
+}
