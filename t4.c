@@ -81,6 +81,77 @@ void imprimeLista(No* lista) {
 	return;
 }
 
+No* montaArv(No* lista){
+	No** plista = &lista, No* arv;
+	while(lista->prox != NULL){
+		arv = montaArvzinha(plista);
+		if(arv == NULL)
+			printf("Erro ao montar arvore");
+		lista = insereArvLista(lista, arv);
+	}
+	return lista;
+}
+
+No* montaArvzinha(No ** lista){
+	No * p1 = *(lista), * p2, * p3, * arv;
+	if(p1 == NULL)
+		return NULL;
+	p2 = p1->prox;
+	p3 = p2->prox;
+	arv = (No*)malloc(sizeof(No));
+	if(arv == NULL)
+		return NULL;
+	arv->a = '+';
+	arv->ocorrencia = p1->ocorrencia + p2->ocorrencia;
+	arv->esq = p1;
+	arv->dir = p2;
+	arv->prox = NULL;
+	*(lista) = p3;
+	return arv;
+	
+}
+
+
+No * insereArvLista(No* lista, No* arv){
+	No* p = lista, * ant = NULL;
+
+	if (lista == NULL) {
+		lista = arv;
+		return lista;
+	}
+	
+	if(p->prox == NULL){
+		if (p->ocorrencia >= arv->ocorrencia) {
+			lista = arv;
+			arv->prox = p;
+		}
+		else
+			p->prox = arv;
+		return lista;
+	}
+
+	else {
+		for (; p != NULL; p = p->prox) {
+			if (p->prox != NULL) {
+				if (p->prox->ocorrencia >= arv->ocorrencia) {
+					ant = p;
+					p = p->prox;
+					break;
+				}
+			}
+			ant = p;
+		}
+		ant->prox = arv;
+
+	}
+
+	arv->prox = p;
+	return lista;
+}
+	
+	
+}
+
 /*arv_vazia verifica se a árvore binária passada como parâmetro está vazia, retorna 1 (True) se estiver,
 senão, retorna 0 (False)*/
 
