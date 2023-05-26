@@ -36,6 +36,8 @@ int main(void) {
 		fread(&c, sizeof(unsigned char), 1, f);
 		ocorrencias[c]++;
 	}
+	
+	/* Fechando o arquivo */
 
 	fclose(f);
 	
@@ -52,24 +54,30 @@ int main(void) {
 
 	imprimeLista(lista);
 	
-	No* arvore = montaArv(lista);
-
-	printf("\nArvore em pre-ordem:\n\n");
-
-	arvImprime(arvore);
+	/*Montando a árvore binária */
 	
+	No* arvore = montaArv(lista);
+	
+	/* Imprimindo a árvore binária usando o percurso pre-ordem */
+
 	printf("\nArvore em pre-ordem:\n\n");
 
 	arvImprime(arvore);
 
+	/* Abrindo o arquivo onde a mensagem codificada será gravada */
+	
 	m = fopen("mensagem.txt", "w");
 
 	if (m == NULL) {
 		printf("Erro ao abrir o arquivo\n");
 		return -1;
 	}
+	
+	/* Percorrendo a árvore binária em percurso pré-ordem para escrever a mensagem codificada no arquivo */
 
 	comprime(arvore, m);
+	
+	/*Fechando o arquivo */
 
 	fclose(m);
 	
