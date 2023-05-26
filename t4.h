@@ -19,3 +19,5 @@ No* montaArv(No* lista);
 No* montaArvzinha(No** plista);
 
 No* insereArvLista(No* lista, No* arv);
+
+void comprime(No* arv, FILE* f);
