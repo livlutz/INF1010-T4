@@ -6,6 +6,8 @@ Luiza Marcondes Paes Leme - 2210275
 #include <stdlib.h>
 #include "t4.h"
 
+/* Struct usada para manipular o array, a lista encadeada e a árvore binária */
+
 struct no {
 	char a;
 	int ocorrencia;
@@ -14,6 +16,7 @@ struct no {
 	No* prox;
 };
 
+/* Função que imprime os caracteres e suas respectivss ocorrências no  array */
 
 void imprimeArray(int ocorrencias[], int tam){
 	printf("Array:\n");
@@ -23,9 +26,15 @@ void imprimeArray(int ocorrencias[], int tam){
 	return;	
 }
 
+/* Função que insere caracteres e suas respectivas ocorrências numa lista encadeada de forma ordenada */
+
+/* OBS: A ordenação obedece a seguinte regra:
+	Caracteres com menores ocorrências tem maior prioridade, enquanto os de maior ocorrência ficam no final da lista */
+
 No* insereLista(No* lista, char c, int quant) {
 	No* novo = NULL, * p = lista, * ant = NULL;
-
+	
+	/* Criamos um novo nó da lista */
 	novo = (No*)malloc(sizeof(No));
 	
 	if (novo == NULL) {
@@ -33,20 +42,27 @@ No* insereLista(No* lista, char c, int quant) {
 		return NULL;
 	}
 	
+	/* inserimos suas informações */
 	novo->a = c;
 	novo->ocorrencia = quant;
 	novo->dir = NULL;
 	novo->esq = NULL;
+	
+	/* Caso a lista esteja vazia, esse nó será o primeiro */
 
 	if (lista == NULL) {
 		lista = novo;
 		novo->prox = NULL;
 		return lista;
 	}
+	
+	/* Caso a lista tenha 1 elemento apenas e o novo tiver menos ocorrências, ele será o novo primeiro elemento */
 
 	if (p->ocorrencia >= quant) {
 		lista = novo;
 	}
+	
+	/* Procuramos a posição certa para inserir o novo elemento, guardando os nos anteriores e próximos */
 
 	else {
 		for (; p != NULL; p = p->prox) {
@@ -68,14 +84,19 @@ No* insereLista(No* lista, char c, int quant) {
 	return lista;
 }
 
+/* Função que insere cada elemento de um array de inteiros numa lista encadeada ordenada por prioridade */
+
 No* formaLista(int ocorrencias[], int tam) {
 	No* lista = NULL;
 	for (int i = 0; i < tam; i++) {
+		/* inserimos apenas os elementos que tem ocorrência no array */
 		if (ocorrencias[i] > 0)
 			lista = insereLista(lista, i, ocorrencias[i]);
 	}
 	return lista;
 }
+
+/*Função que imprime os caracteres e a ocorrência de cada no de uma lista encadeada ordenada por prioridade */
 	
 void imprimeLista(No* lista) {
 	printf("\nLista encadeada por prioridade:\n\n");
@@ -84,6 +105,8 @@ void imprimeLista(No* lista) {
 	}
 	return;
 }
+
+/*Função que insere árvores binárias numa lista encadeada ordenada por prioridade */
 
 No* montaArv(No* lista){
 	No** plista = &lista, No* arv;
@@ -96,25 +119,39 @@ No* montaArv(No* lista){
 	return lista;
 }
 
+/* Função que monta uma árvore binária a partir de uma lista encadeada orndenada por prioridade */
+
 No* montaArvzinha(No ** plista){
 	No * p1 = *(plista), * p2, * p3, * arv;
-	if(p1 == NULL)
+	
+	if(p1 == NULL){
 		return NULL;
+	}
+	
 	p2 = p1->prox;
 	p3 = p2->prox;
+	
 	arv = (No*)malloc(sizeof(No));
 	if(arv == NULL)
 		return NULL;
-	arv->a = '+';
-	arv->ocorrencia = p1->ocorrencia + p2->ocorrencia;
-	arv->esq = p1;
-	arv->dir = p2;
-	arv->prox = NULL;
-	*(plista) = p3;
-	return arv;
 	
+	/* Cada no será a soma das ocorrências de seus 2 filhos */
+	arv->a = '+';
+	
+	arv->ocorrencia = p1->ocorrencia + p2->ocorrencia;
+	
+	arv->esq = p1;
+	
+	arv->dir = p2;
+	
+	arv->prox = NULL;
+	
+	*(plista) = p3;
+	
+	return arv;
 }
 
+/* Função auxiliar que insere uma árvore binária como nó de uma lista encadeada */
 
 No * insereArvLista(No* lista, No* arv){
 	No* p = lista, * ant = NULL;
@@ -173,7 +210,7 @@ void arvImprime(No* a){
 	}
 }
 
-//percorre a árvore em pré-ordem e escreve os caracteres num arquivo
+//Percorre a árvore binaria em pré-ordem e escreve os caracteres num arquivo
 
 void comprime(No*arv,FILE*f){
 	
