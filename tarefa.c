@@ -48,5 +48,11 @@ int main(void) {
 
 	imprimeLista(lista);
 	
+	No* arvore = montaArv(lista);
+
+	printf("\nArvore em pre-ordem:\n\n");
+
+	arvImprime(arvore);
+	
 	return 0;
 }
