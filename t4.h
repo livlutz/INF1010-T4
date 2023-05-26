@@ -11,3 +11,9 @@ int arv_vazia(No* a);
 void arvImprime(No* a);
 
 void imprimeLista(No* l);
+
+No* montaArv(No* lista);
+
+No* montaArvzinha(No** plista);
+
+No* insereArvLista(No* lista, No* arv);
