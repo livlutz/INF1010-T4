@@ -7,7 +7,7 @@ Luiza Marcondes Paes Leme - 2210275
 
 
 int main(void) {
-	FILE* f;
+	FILE* f,*m;
 	unsigned char c;
 
 	//Array que contém o número de ocorrências de cada char no arquivo
@@ -57,6 +57,21 @@ int main(void) {
 	printf("\nArvore em pre-ordem:\n\n");
 
 	arvImprime(arvore);
+	
+	printf("\nArvore em pre-ordem:\n\n");
+
+	arvImprime(arvore);
+
+	m = fopen("mensagem.txt", "w");
+
+	if (m == NULL) {
+		printf("Erro ao abrir o arquivo\n");
+		return -1;
+	}
+
+	comprime(arvore, m);
+
+	fclose(m);
 	
 	return 0;
 }
