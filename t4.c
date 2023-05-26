@@ -14,7 +14,7 @@ struct no {
 void imprimeArray(int ocorrencias[], int tam){
 	printf("Array:\n");
 	for (int i = 0; i < tam; i++) {
-		printf("%c - %d ocorrencias\n", i, ocorrencias[i]);
+		printf("'%c' - %d ocorrencias\n", i, ocorrencias[i]);
 	}
 	return;	
 }
@@ -76,7 +76,7 @@ No* formaLista(int ocorrencias[], int tam) {
 void imprimeLista(No* lista) {
 	printf("\nLista encadeada por prioridade:\n\n");
 	for (No* p = lista; p != NULL; p = p->prox) {
-		printf("%c - %d ocorrencias\n", p->a, p->ocorrencia);
+		printf("'%c' - %d ocorrencias\n", p->a, p->ocorrencia);
 	}
 	return;
 }
@@ -167,17 +167,15 @@ void arvImprime(No* a){
 	/*Até o final da árvore, imprimimos suas informações*/
 
 	if (!arv_vazia(a)) {
-		/*Imprimindo as informações do nó raiz, incluindo seu valor inteiro e os ponteiros do
-		nó à esquerda, à direita e seu próprio ponteiro*/
 
-		printf("No:%p Esquerda:%p Char:%c Direita:%p\n", a, a->esq, a->a, a->dir);
-		
+		printf("Char:'%c' - ocorrencia:%d\n", a->a,a->ocorrencia);
+
 		/*Imprime as informações dos nós à esquerda recursivamente*/
-		
-		arvImprime(a->esq); 
-		
+
+		arvImprime(a->esq);
+
 		/*Imprime as informações dos nós à direita recursivamente*/
-		
-		arvImprime(a->dir); 
+
+		arvImprime(a->dir);
 	}
 }
