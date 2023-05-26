@@ -92,8 +92,8 @@ No* montaArv(No* lista){
 	return lista;
 }
 
-No* montaArvzinha(No ** lista){
-	No * p1 = *(lista), * p2, * p3, * arv;
+No* montaArvzinha(No ** plista){
+	No * p1 = *(plista), * p2, * p3, * arv;
 	if(p1 == NULL)
 		return NULL;
 	p2 = p1->prox;
@@ -106,7 +106,7 @@ No* montaArvzinha(No ** lista){
 	arv->esq = p1;
 	arv->dir = p2;
 	arv->prox = NULL;
-	*(lista) = p3;
+	*(plista) = p3;
 	return arv;
 	
 }
@@ -149,17 +149,6 @@ No * insereArvLista(No* lista, No* arv){
 	return lista;
 }
 	
-	
-}
-
-/*arv_vazia verifica se a árvore binária passada como parâmetro está vazia, retorna 1 (True) se estiver,
-senão, retorna 0 (False)*/
-
-int arv_vazia(No* a) {
-	return a == NULL;
-}
-
-
 /*arvImprime imprime a árvore binária em pré- ordem, ou seja, primeiro as informações no nó raiz,
 seguido dos nós à esquerda e por fim os nós à direita*/
 
