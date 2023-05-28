@@ -21,4 +21,4 @@ No* montaArvzinha(No** plista);
 
 No* insereArvLista(No* lista, No* arv);
 
-void comprime(No* arv, FILE* f);
+void codifica(No* arv, int cod[], int ind, Cod vCodigos[], int indCod);
