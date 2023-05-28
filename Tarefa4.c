@@ -9,6 +9,7 @@ Luiza Marcondes Paes Leme - 2210275
 int main(void) {
 	FILE* f,*m;
 	unsigned char c;
+	No* lista,*arvore;
 
 	//Array que contém o número de ocorrências de cada char no arquivo
 
@@ -48,7 +49,7 @@ int main(void) {
 	/*Criando a lista encadeada ordenada por prioridade(menos->mais ocorrências)
 	* para os caracteres do array */
 
-	No* lista = formaLista(ocorrencias, 128);
+	lista = formaLista(ocorrencias, 128);
 
 	//Imprimindo a lista resultante
 
@@ -56,7 +57,7 @@ int main(void) {
 	
 	/*Montando a árvore binária */
 	
-	No* arvore = montaArv(lista);
+	arvore = montaArv(lista);
 	
 	/* Imprimindo a árvore binária usando o percurso pre-ordem */
 
