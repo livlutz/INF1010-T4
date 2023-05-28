@@ -3,6 +3,7 @@ Luiza Marcondes Paes Leme - 2210275
 */
 
 typedef struct no No; 
+typedef struct cod Cod;
 
 void imprimeArray(int ocorrencias[], int tam);
 
