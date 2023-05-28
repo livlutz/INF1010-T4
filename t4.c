@@ -18,9 +18,10 @@ struct no {
 
 /* Struct usada para guardar o código para compressão */
 
-struct cod{
-	char c;
-	char cod[10];
+struct cod {
+    char c;
+    int* cod;
+    int tam;
 };
 
 /* Função que imprime os caracteres e suas respectivss ocorrências no  array */
@@ -232,6 +233,49 @@ void arvImprime(No* a){
 		arvImprime(a->dir);
 	}
 }
+
+/* Função que percorre a árvore e gera os códigos */
+
+void codifica(No* arv, int cod[], int ind, Cod vCodigos[], int* indCod) {
+	
+    /* Se o nó for folha, ele tem como valor um caractere para codificar */
+	
+    if (arv->esq == NULL && arv->dir == NULL) {
+	    
+        /* Armazena os valores com o código em uma variável */
+        
+	Cod codificado;
+        codificado.c = arv->a;
+        codificado.cod = (int)malloc(ind * sizeof(int));
+        codificado.tam = ind;
+
+        for (int i = 0; i < ind; i++) {
+            codificado.cod[i] = cod[i];
+        }
+
+        /* Coloca o valor no vetor de códigos*/
+	    
+        vCodigos[indCod] = codificado;
+        (indCod)++;
+    }
+
+    /* Chama à esquerda e coloca 0 no código */
+	
+    if (arv->esq != NULL) {
+        cod[ind] = 0;
+        codifica(arv->esq, cod, ind + 1, huffmanCodes, indCod);
+    }
+
+    /* Chama à direita e coloca 1 no código */
+	
+    if (arv->dir != NULL) {
+        cod[ind] = 1;
+        codifica(arv->dir, cod, ind + 1, huffmanCodes, indCod);
+    }
+}
+
+
+
 
 //Percorre a árvore binaria em pré-ordem e escreve os caracteres num arquivo
 
