@@ -110,12 +110,15 @@ void imprimeLista(No* lista) {
 
 No* montaArv(No* lista){
 	No** plista = &lista, No* arv;
+	
+	/*Para cada nó da lista, formamos uma árvore a partir dele e o inserimos na lista*/ 
 	while(lista->prox != NULL){
 		arv = montaArvzinha(plista);
 		if(arv == NULL)
 			printf("Erro ao montar arvore");
 		lista = insereArvLista(lista, arv);
 	}
+	
 	return lista;
 }
 
@@ -124,10 +127,13 @@ No* montaArv(No* lista){
 No* montaArvzinha(No ** plista){
 	No * p1 = *(plista), * p2, * p3, * arv;
 	
+	/* Caso de lista vazia */
+	
 	if(p1 == NULL){
 		return NULL;
 	}
 	
+	/*Guardando os próximos 2 nós da lista */
 	p2 = p1->prox;
 	p3 = p2->prox;
 	
@@ -136,6 +142,7 @@ No* montaArvzinha(No ** plista){
 		return NULL;
 	
 	/* Cada no será a soma das ocorrências de seus 2 filhos */
+	
 	arv->a = '+';
 	
 	arv->ocorrencia = p1->ocorrencia + p2->ocorrencia;
@@ -155,13 +162,20 @@ No* montaArvzinha(No ** plista){
 
 No * insereArvLista(No* lista, No* arv){
 	No* p = lista, * ant = NULL;
+	
+/* Caso a lista esteja vazia, inserimos a árvore como primeiro nó */
 
 	if (lista == NULL) {
 		lista = arv;
 		return lista;
 	}
 	
+/* Caso se ser o primeiro elemento */
+	
 	if(p->prox == NULL){
+	
+	/* Ordenando por prioridade */
+		
 		if (p->ocorrencia >= arv->ocorrencia) {
 			lista = arv;
 			arv->prox = p;
@@ -170,7 +184,9 @@ No * insereArvLista(No* lista, No* arv){
 			p->prox = arv;
 		return lista;
 	}
-
+	
+/* Buscamos a posição ideal para inserir o nó da árvore na lista */
+	
 	else {
 		for (; p != NULL; p = p->prox) {
 			if (p->prox != NULL) {
