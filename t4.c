@@ -16,6 +16,13 @@ struct no {
 	No* prox;
 };
 
+/* Struct usada para guardar o código para compressão */
+
+struct cod{
+	char c;
+	char cod[10];
+};
+
 /* Função que imprime os caracteres e suas respectivss ocorrências no  array */
 
 void imprimeArray(int ocorrencias[], int tam){
