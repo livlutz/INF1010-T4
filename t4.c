@@ -236,7 +236,7 @@ void arvImprime(No* a){
 
 /* Função que percorre a árvore e gera os códigos */
 
-void codifica(No* arv, int cod[], int ind, Cod vCodigos[], int* indCod) {
+void codifica(No* arv, int cod[], int ind, Cod vCodigos[], int indCod) {
 	
     /* Se o nó for folha, ele tem como valor um caractere para codificar */
 	
@@ -263,14 +263,14 @@ void codifica(No* arv, int cod[], int ind, Cod vCodigos[], int* indCod) {
 	
     if (arv->esq != NULL) {
         cod[ind] = 0;
-        codifica(arv->esq, cod, ind + 1, huffmanCodes, indCod);
+        codifica(arv->esq, cod, ind + 1, vCodigos, indCod);
     }
 
     /* Chama à direita e coloca 1 no código */
 	
     if (arv->dir != NULL) {
         cod[ind] = 1;
-        codifica(arv->dir, cod, ind + 1, huffmanCodes, indCod);
+        codifica(arv->dir, cod, ind + 1, vCodigos, indCod);
     }
 }
 
