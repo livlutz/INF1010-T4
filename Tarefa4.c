@@ -10,7 +10,10 @@ int main(void) {
 	FILE* f,*m;
 	unsigned char c;
 	No* lista,*arvore;
-
+	int numC = 0, cod[];
+	Cod* vCodigos;
+	
+	
 	//Array que contém o número de ocorrências de cada char no arquivo
 
 	int ocorrencias[128];
@@ -27,7 +30,7 @@ int main(void) {
 
 	if (f == NULL) {
 		printf("erro ao abrir arquivo\n");
-		return NULL;
+		return -1;
 	}
 
 	/*Lê os caracteres do arquivo e de acordo com seu valor ASCII(indice no array)
@@ -55,6 +58,10 @@ int main(void) {
 
 	imprimeLista(lista);
 	
+	for(No* p = lista; p != NULL; p = p->prox){
+		numC++;
+	}
+	
 	/*Montando a árvore binária */
 	
 	arvore = montaArv(lista);
@@ -64,23 +71,14 @@ int main(void) {
 	printf("\nArvore em pre-ordem:\n\n");
 
 	arvImprime(arvore);
-
-	/* Abrindo o arquivo onde a mensagem codificada será gravada */
 	
-	m = fopen("mensagem.txt", "w");
-
-	if (m == NULL) {
-		printf("Erro ao abrir o arquivo\n");
+	vCodigos = (Cod*)malloc(numC * sizeof(Cod));
+	if(vCodigos == NULL)
 		return -1;
-	}
-	
-	/* Percorrendo a árvore binária em percurso pré-ordem para escrever a mensagem codificada no arquivo */
 
-	comprime(arvore, m);
+	codifica(arvore, cod, 0, vCodigos, 0);
 	
-	/*Fechando o arquivo */
-
-	fclose(m);
+	imprimeCodifica(vCodigos, numC);
 	
 	return 0;
 }
