@@ -1,1 +1,1 @@
-As estruturas de dados são fundamentais para a organização e manipulação eficiente de informações
+As estruturas de dados sao fundamentais para a organizacao e manipulacao eficiente de informacoes
