@@ -5,6 +5,8 @@ Luiza Marcondes Paes Leme - 2210275
 #include <stdio.h>
 #include "t4.h"
 
+/* Struct usada para manipular o array, a lista encadeada e a árvore binária */
+
 struct no {
 	char a;
 	int ocorrencia;
