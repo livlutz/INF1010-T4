@@ -273,3 +273,66 @@ void codifica(No* arv, int cod[], int ind, Cod vCodigos[], int indCod) {
     }
 }
 
+/* Função que percorre a árvore e gera os códigos */
+
+int codifica(No* arv, int cod[], int ind, Cod vCodigos[], int indCod) {
+
+	/*Se o nó for folha, e um caracter, logo o inserimos em vCodigos*/
+
+	if (arv->esq == NULL && arv->dir == NULL) {
+		Cod* codificado = (Cod*)malloc(sizeof(Cod));
+		if (codificado == NULL) {
+			printf("Erro na alocacao");
+			exit(1);
+		}
+		codificado->c = arv->a;
+		codificado->tam = ind;
+		for (int i = 0; i < ind; i++) {
+			codificado->cod[i] = cod[i];
+		}
+		vCodigos[indCod] = *codificado;
+		indCod++;
+	}
+
+	/*Repetimos o processo para a subárvore esquerda e direita*/
+
+	if (arv->esq != NULL) {
+		cod[ind] = 0;
+		indCod = codifica(arv->esq, cod, ind + 1, vCodigos, indCod);
+	}
+	if (arv->dir != NULL) {
+		cod[ind] = 1;
+		indCod = codifica(arv->dir, cod, ind + 1, vCodigos, indCod);
+	}
+	return indCod;
+}
+
+/* Função que imprime cada caracter codificado em binário*/
+
+void imprimeCodifica(Cod* vCodigos, int numC) {
+	printf("\nCodigos:\n");
+
+	for (int i = 0; i < numC; i++) {
+		printf("\n'%c' - ", vCodigos[i].c);
+
+		for (int k = 0; k < vCodigos[i].tam; k++)
+			printf("%d", vCodigos[i].cod[k]);
+	}
+}
+
+/* Função que busca o nó correspondente ao caracter no array códigos */
+
+Cod* buscaCod(Cod* vCodigos, char c){
+	Cod* p = vCodigos;
+
+	if (p == NULL) {
+		return NULL;
+	}
+
+	while (p->c != c) {
+		p++;
+	}
+	
+	return p;
+}
+
