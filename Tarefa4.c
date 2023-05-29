@@ -3,6 +3,7 @@ Luiza Marcondes Paes Leme - 2210275
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "t4.h"
 
 /* Struct usada para manipular o array, a lista encadeada e a árvore binária */
@@ -89,13 +90,6 @@ int main(void) {
 	printf("\nArvore em pre-ordem:\n\n");
 
 	arvImprime(arvore);
-	
-	vCodigos = (Cod*)malloc(numC * sizeof(Cod));
-	if (vCodigos == NULL)
-		return -1;
-
-	codifica(arvore, cod, 0, vCodigos, 0);
-	
 	
 	/*Array de codigos para guardar os caracteres codificados*/
 
