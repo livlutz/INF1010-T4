@@ -5,12 +5,28 @@ Luiza Marcondes Paes Leme - 2210275
 #include <stdio.h>
 #include "t4.h"
 
+struct no {
+	char a;
+	int ocorrencia;
+	No* dir;
+	No* esq;
+	No* prox;
+};
+
+/* Struct usada para guardar o código para compressão */
+
+struct cod {
+	char c;
+	int cod[8];
+	int tam;
+};
+
 
 int main(void) {
 	FILE* f,*m;
 	unsigned char c;
 	No* lista,*arvore;
-	int numC = 0, cod[];
+	int numC = 0, cod[8];
 	Cod* vCodigos;
 	
 	
@@ -73,12 +89,10 @@ int main(void) {
 	arvImprime(arvore);
 	
 	vCodigos = (Cod*)malloc(numC * sizeof(Cod));
-	if(vCodigos == NULL)
+	if (vCodigos == NULL)
 		return -1;
 
 	codifica(arvore, cod, 0, vCodigos, 0);
-	
-	imprimeCodifica(vCodigos, numC);
 	
 	return 0;
 }
