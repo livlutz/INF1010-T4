@@ -20,7 +20,7 @@ struct no {
 
 struct cod {
     char c;
-    int* cod;
+    int cod[8];
     int tam;
 };
 
@@ -220,7 +220,7 @@ seguido dos nós à esquerda e por fim os nós à direita*/
 void arvImprime(No* a){
 	/*Até o final da árvore, imprimimos suas informações*/
 
-	if (!arv_vazia(a)) {
+	if (a != NULL) {
 
 		printf("Char:'%c' - ocorrencia:%d\n", a->a,a->ocorrencia);
 
@@ -246,7 +246,6 @@ void codifica(No* arv, int cod[], int ind, Cod vCodigos[], int indCod) {
         
 	Cod codificado;
         codificado.c = arv->a;
-        codificado.cod = (int)malloc(ind * sizeof(int));
         codificado.tam = ind;
 
         for (int i = 0; i < ind; i++) {
@@ -274,19 +273,3 @@ void codifica(No* arv, int cod[], int ind, Cod vCodigos[], int indCod) {
     }
 }
 
-
-
-
-//Percorre a árvore binaria em pré-ordem e escreve os caracteres num arquivo
-
-void comprime(No*arv,FILE*f){
-	
-	if (arv == NULL) {
-		return;
-	}
-
-	comprime(arv->esq, f);
-	fprintf(f, "%c ", arv->a);
-	comprime(arv->dir, f);
-
-}
