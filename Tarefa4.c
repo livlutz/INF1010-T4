@@ -96,5 +96,41 @@ int main(void) {
 
 	codifica(arvore, cod, 0, vCodigos, 0);
 	
+	
+	/*Array de codigos para guardar os caracteres codificados*/
+
+	vCodigos = (Cod*)malloc(numC * sizeof(Cod));
+	if (vCodigos == NULL)
+		return -1;
+
+	indCod = codifica(arvore, cod, 0, vCodigos,indCod);
+
+	/*Imprimindo cada caractere e sua codificacao*/
+
+	imprimeCodifica(vCodigos, numC);
+
+	/* Lendo cada caracter do arquivo e imprimindo a mensagem comprimida*/
+
+	f = fopen("frase.txt", "r");
+
+	if (f == NULL) {
+		printf("erro ao abrir arquivo\n");
+		return -1;
+	}
+
+	printf("\n\nMensagem comprimida:\n");
+
+	while (!feof(f)) {
+		fread(&c, sizeof(unsigned char), 1, f);
+		p = buscaCod(vCodigos, c);
+		for (int i = 0; i < p->tam; i++)
+			printf("%d", p->cod[i]);
+		printf(" ");
+	}
+
+	/* Fechando o arquivo */
+
+	fclose(f);
+	
 	return 0;
 }
