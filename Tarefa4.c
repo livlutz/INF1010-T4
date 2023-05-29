@@ -25,11 +25,11 @@ struct cod {
 
 
 int main(void) {
-	FILE* f,*m;
+	FILE* f;
 	unsigned char c;
 	No* lista,*arvore;
-	int numC = 0, cod[8];
-	Cod* vCodigos;
+	int numC = 0, cod[8], indCod = 0;
+	Cod* vCodigos,*p;
 	
 	
 	//Array que contém o número de ocorrências de cada char no arquivo
