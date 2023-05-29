@@ -117,7 +117,7 @@ void imprimeLista(No* lista) {
 /*Função que insere árvores binárias numa lista encadeada ordenada por prioridade */
 
 No* montaArv(No* lista){
-	No** plista = &lista, No* arv;
+	No** plista = &lista, *arv;
 	
 	/*Para cada nó da lista, formamos uma árvore a partir dele e o inserimos na lista*/ 
 	while(lista->prox != NULL){
@@ -232,45 +232,6 @@ void arvImprime(No* a){
 
 		arvImprime(a->dir);
 	}
-}
-
-/* Função que percorre a árvore e gera os códigos */
-
-void codifica(No* arv, int cod[], int ind, Cod vCodigos[], int indCod) {
-	
-    /* Se o nó for folha, ele tem como valor um caractere para codificar */
-	
-    if (arv->esq == NULL && arv->dir == NULL) {
-	    
-        /* Armazena os valores com o código em uma variável */
-        
-	Cod codificado;
-        codificado.c = arv->a;
-        codificado.tam = ind;
-
-        for (int i = 0; i < ind; i++) {
-            codificado.cod[i] = cod[i];
-        }
-
-        /* Coloca o valor no vetor de códigos*/
-	    
-        vCodigos[indCod] = codificado;
-        (indCod)++;
-    }
-
-    /* Chama à esquerda e coloca 0 no código */
-	
-    if (arv->esq != NULL) {
-        cod[ind] = 0;
-        codifica(arv->esq, cod, ind + 1, vCodigos, indCod);
-    }
-
-    /* Chama à direita e coloca 1 no código */
-	
-    if (arv->dir != NULL) {
-        cod[ind] = 1;
-        codifica(arv->dir, cod, ind + 1, vCodigos, indCod);
-    }
 }
 
 /* Função que percorre a árvore e gera os códigos */
