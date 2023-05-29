@@ -21,4 +21,8 @@ No* montaArvzinha(No** plista);
 
 No* insereArvLista(No* lista, No* arv);
 
-void codifica(No* arv, int cod[], int ind, Cod vCodigos[], int indCod);
+int codifica(No* arv, int cod[], int ind, Cod vCodigos[], int indCod);
+
+void imprimeCodifica(Cod* vCodigos, int numC);
+
+Cod* buscaCod(Cod* vCodigos, char c);
