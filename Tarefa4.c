@@ -20,7 +20,7 @@ struct no {
 
 struct cod {
 	char c;
-	int cod[8];
+	unsigned char cod[8];
 	int tam;
 };
 
@@ -29,19 +29,15 @@ int main(void) {
 	FILE* f,*b;
 	unsigned char c;
 	No* lista,*arvore;
-	int numC = 0, cod[8], indCod = 0, numL = 0, gravado = 0, pos = 0, bit = 0;
+	int numC = 0, indCod = 0, numL = 0, gravado = 0, pos = 0, bit = 0;
 	Cod* vCodigos,*p;
+	unsigned char cod[8];
 	
 	
 	//Array que contém o número de ocorrências de cada char no arquivo
-
-	int ocorrencias[128];
-
 	//Inicializa o array com 0
 
-	for (int i = 0; i < 128; i++) {
-		ocorrencias[i] = 0;
-	}
+	int ocorrencias[128] = { 0 };
 
 	//Abre o arquivo
 
@@ -112,16 +108,22 @@ int main(void) {
 		printf("erro ao abrir arquivo\n");
 		return -1;
 	}
+	
+	/*Cria um array de bytes a partir da mensagem comprimida para escrever no arquivo binário*/
 
-	char* vComprimido = (char*)malloc(sizeof(char) * numL);
+	unsigned char* vComprimido = (char*)malloc(sizeof(char) * numL);
 	if(vComprimido == NULL){
 		printf("Erro na alocacao\n");
 		exit(1);
 	}
 	
+	/* Inicializando o array com zeros*/
+	
 	for(int i = 0; i < numL; i++){
 		vComprimido[i] = 0;
 	}
+	
+	/*Lendo a mensagem comprimida do arquivo*/
 	
 	printf("\n\nMensagem comprimida:\n");
 
@@ -130,22 +132,37 @@ int main(void) {
 		
 		p = buscaCod(vCodigos, c);
 		
+		/*Montando o array de bytes a partir da mensagem comprimida para ser escrito no arquivo binário*/
+		
 		for (int i = 0; i < p->tam; i++){
 			printf("%d\n", p->cod[i]);
+			
+			/*Adicionamos a parte comprimida em cada byte*/
+			
 			vComprimido[pos] |= p->cod[i];
 			
+			/* Caso seja o último bit da posição do array,exibimos esse byte e zeramos a quantidade de bits ocupados*/
+			
 			if(bit == 7){
-				printf("%02x\n", vComprimido[pos]);
+				printf("\nByte: 0x%02X\n\n", vComprimido[pos]);
 				pos++;
 				bit = 0;
 			}
+			
+			/*Senão, abrimos espaço de 1 bit na posição e aumentamos a contagem de bits ocupados*/
 			
 			else{
 				vComprimido[pos] <<= 1;
 				bit++;
 			}
 		}
-		printf(" ");
+	}
+	
+	/*Caso para exibir o último byte do array*/
+
+	if (bit > 0) {
+		printf("\nByte: 0x%02X\n\n", vComprimido[pos]);
+		pos++;
 	}
 
 	/* Fechando o arquivo */
@@ -160,7 +177,11 @@ int main(void) {
 	}
 	
 	gravado = fwrite(&vComprimido[0], sizeof(char), pos, b);
-	printf("Bytes gravados no arquivo: %d\n",gravado);
+	
+	/*Imprimindo a quantidade de bytes gravados no arquivo*/
+	printf("\nBytes gravados no arquivo: %d",gravado);
+
+	/*Fechando o arquivo binário*/
 	
 	fclose(b);
 	
