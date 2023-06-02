@@ -26,7 +26,7 @@ struct cod {
 
 
 int main(void) {
-	FILE* f;
+	FILE* f,*b;
 	unsigned char c;
 	No* lista,*arvore;
 	int numC = 0, cod[8], indCod = 0;
@@ -125,6 +125,13 @@ int main(void) {
 	/* Fechando o arquivo */
 
 	fclose(f);
+	
+	b = fopen("comprimido.dat","wb");
+	
+	if(b == NULL){
+		printf("Erro ao abrir arquivo binario\n");
+		exit(1);
+	}
 	
 	return 0;
 }
