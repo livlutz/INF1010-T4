@@ -49,7 +49,8 @@ int main(void) {
 	}
 
 	/*Lê os caracteres do arquivo e de acordo com seu valor ASCII(indice no array)
-	* e incrementa 1 toda vez q esse caracter for encontrado */
+	* e incrementa 1 toda vez q esse caracter for encontrado, também contamos o número de letras 
+	(caracteres) presentes nesse arquivo */
 
 	while (!feof(f)) {
 		fread(&c, sizeof(unsigned char), 1, f);
