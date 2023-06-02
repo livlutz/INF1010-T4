@@ -20,7 +20,7 @@ struct no {
 
 struct cod {
     char c;
-    int cod[8];
+    unsigned char cod[8];
     int tam;
 };
 
@@ -236,7 +236,7 @@ void arvImprime(No* a){
 
 /* Função que percorre a árvore e gera os códigos */
 
-int codifica(No* arv, int cod[], int ind, Cod vCodigos[], int indCod) {
+int codifica(No* arv, unsigned char cod[], int ind, Cod vCodigos[], int indCod) {
 
 	/*Se o nó for folha, e um caracter, logo o inserimos em vCodigos*/
 
