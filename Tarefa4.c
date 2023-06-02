@@ -29,7 +29,7 @@ int main(void) {
 	FILE* f,*b;
 	unsigned char c;
 	No* lista,*arvore;
-	int numC = 0, cod[8], indCod = 0;
+	int numC = 0, cod[8], indCod = 0, numL = 0;
 	Cod* vCodigos,*p;
 	
 	
@@ -58,6 +58,7 @@ int main(void) {
 	while (!feof(f)) {
 		fread(&c, sizeof(unsigned char), 1, f);
 		ocorrencias[c]++;
+		numL++;
 	}
 	
 	/* Fechando o arquivo */
@@ -112,13 +113,33 @@ int main(void) {
 		return -1;
 	}
 
+	vComprimido* = (char*)malloc(sizeof(char) * numL);
+	if(vComprimido == NULL){
+		printf("Erro na alocacao\n");
+		exit(1);
+	}
+	
+	for(int i = 0; i < numL; i++)
+		vComprimido[i] = 0;
+	int pos = 0, bit = 0;
 	printf("\n\nMensagem comprimida:\n");
 
 	while (!feof(f)) {
 		fread(&c, sizeof(unsigned char), 1, f);
 		p = buscaCod(vCodigos, c);
-		for (int i = 0; i < p->tam; i++)
+		for (int i = 0; i < p->tam; i++){
 			printf("%d", p->cod[i]);
+			vComprimido[pos] |= p->cod[i];
+			if(bit == 7){
+				printf("\n%x\n", vComprimido[pos]);
+				pos++;
+				bit = 0;
+			}
+			else{
+				vComprimido[pos] <<= 1;
+				bit++;
+			}
+		}
 		printf(" ");
 	}
 
@@ -132,6 +153,12 @@ int main(void) {
 		printf("Erro ao abrir arquivo binario\n");
 		exit(1);
 	}
+	
+	int gravado = 0;
+	gravado = fwrite(&vComprimido[0], sizeof(char), pos, b);
+	printf("\nBytes gravados no arquivo: %d");
+	
+	fclose(b);
 	
 	return 0;
 }
